@@ -1,5 +1,5 @@
 {
-  "id": "ce73a33f-0e60-4251-a2fa-d578f04108d5",
+  "id": "79e35521-b8e1-4707-a652-948db93b5656",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -42,8 +42,8 @@
       "name": "enrollments",
       "schema": "",
       "columns": {
-        "user_email": {
-          "name": "user_email",
+        "user_id": {
+          "name": "user_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -57,12 +57,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "enrollments_user_email_users_user_id_fk": {
-          "name": "enrollments_user_email_users_user_id_fk",
+        "enrollments_user_id_users_user_id_fk": {
+          "name": "enrollments_user_id_users_user_id_fk",
           "tableFrom": "enrollments",
           "tableTo": "users",
           "columnsFrom": [
-            "user_email"
+            "user_id"
           ],
           "columnsTo": [
             "user_id"
@@ -85,10 +85,10 @@
         }
       },
       "compositePrimaryKeys": {
-        "enrollments_user_email_course_id_pk": {
-          "name": "enrollments_user_email_course_id_pk",
+        "enrollments_user_id_course_id_pk": {
+          "name": "enrollments_user_id_course_id_pk",
           "columns": [
-            "user_email",
+            "user_id",
             "course_id"
           ]
         }
@@ -135,6 +135,12 @@
           "primaryKey": false,
           "notNull": false,
           "default": "'user'"
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},

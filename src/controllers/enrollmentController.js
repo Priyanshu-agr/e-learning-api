@@ -1,7 +1,9 @@
 const db = require("../database/postgresConnect.js");
 const { enrollments } = require("../model/enrollmentModel.js");
+const { users } = require("../model/userModel.js");
 const { courses } = require("../model/courseModel.js");
 const { eq } = require("drizzle-orm");
+const resendEmail = require("../utils/resend.js");
 
 const enrollCourseGet = async (req, res) => {
     try {
@@ -29,7 +31,11 @@ const courseEnrollPost = async (req, res) => {
     try {
         const { courseId } = req.params;
         const userId = req.userId;
+        const user = await db.select().from(users).where(eq(users.id, userId));
+        const course = await db.select().from(courses).where(eq(courses.id, courseId));
         await db.insert(enrollments).values({ userId: userId, courseId: courseId });
+        console.log(user);
+        resendEmail(user.emailId, "Course Registarion Successful", `Successfully enrolled in ${course.name}`)
         res.status(200).json({ message: "Successfully enrolled in course" });
     }
     catch (err) {

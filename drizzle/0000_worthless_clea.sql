@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS "courses" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "enrollments" (
-	"user_email" integer,
+	"user_id" integer,
 	"course_id" integer,
-	CONSTRAINT "enrollments_user_email_course_id_pk" PRIMARY KEY("user_email","course_id")
+	CONSTRAINT "enrollments_user_id_course_id_pk" PRIMARY KEY("user_id","course_id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
@@ -23,11 +23,12 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"first_name" varchar(256) NOT NULL,
 	"last_name" varchar(256),
 	"password" varchar NOT NULL,
-	"role" "role" DEFAULT 'user'
+	"role" "role" DEFAULT 'user',
+	"image_url" varchar
 );
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "enrollments" ADD CONSTRAINT "enrollments_user_email_users_user_id_fk" FOREIGN KEY ("user_email") REFERENCES "users"("user_id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "enrollments" ADD CONSTRAINT "enrollments_user_id_users_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("user_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
