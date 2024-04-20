@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/health-check", (req, res) => {
     res.send("Server is up and running");
-})
+});
 
 app.use('/users', userRouter);
 app.use('/courses', courseRouter);
