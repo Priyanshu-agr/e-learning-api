@@ -2,7 +2,7 @@ const db = require("../database/postgresConnect.js");
 const { users } = require("../model/userModel.js");
 const { eq } = require("drizzle-orm");
 const bcrypt = require("bcrypt");
-const generateAccessToken = require("../utils/jwt.js"); 
+const generateAccessToken = require("../utils/jwt.js");
 const uploadImage = require("../utils/cloudinary.js");
 const resendEmail = require("../utils/resend.js");
 
@@ -49,7 +49,7 @@ const userRegisterPost = async (req, res) => {
         const hash = await bcrypt.hash(password, saltRounds);
         req.body.password = hash;
         await db.insert(users).values(req.body);
-        resendEmail(emailId,"Registartion Successful","You have been successfully registered on the e-learning platform");
+        resendEmail(emailId, "Registartion Successful", "You have been successfully registered on the e-learning platform");
         res.status(201).json({ message: "User Registered Successfully" });
     }
     catch (err) {
